@@ -1,0 +1,41 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  creationTimestamp: null
+  labels:
+    run: k8s-php-app
+  name: k8s-php-app
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      run: k8s-php-app
+  strategy: {}
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        run: k8s-php-app
+    spec:
+      containers:
+        - image: k8s-php-app
+          name: k8s-php-app
+          imagePullPolicy: Never
+          ports:
+            - containerPort: 80
+          resources: {}
+          envFrom:
+          - configMapRef:
+              name: k8s-php-config
+          env:
+            - name: DB_USER
+              valueFrom:
+                secretKeyRef:
+                  name: k8s-php-secrets
+                  key: DB_USER
+            - name: DB_PASS
+              valueFrom:
+                secretKeyRef:
+                  name: k8s-php-secrets
+                  key: DB_PASS
+status: {}

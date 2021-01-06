@@ -1,0 +1,27 @@
+{
+    "kind": "Service",
+    "apiVersion": "v1",
+    "metadata": {
+        "name": "hello-world",
+        "creationTimestamp": null,
+        "labels": {
+            "run": "hello-world"
+        }
+    },
+    "spec": {
+        "ports": [
+            {
+                "protocol": "TCP",
+                "port": 80,
+                "targetPort": 80
+            }
+        ],
+        "selector": {
+            "run": "hello-world"
+        },
+        "type": "NodePort"
+    },
+    "status": {
+        "loadBalancer": {}
+    }
+}
